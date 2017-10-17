@@ -1,0 +1,17 @@
+mixin editForm(user = {})
+  form(action='editUser' method='POST')
+    -const email = user.email || '';
+    input(type="email" name='email' value=email)
+    | email
+    br
+    -const username = user.username || '';
+    input(type="text" name='username' value=user.username || '')
+    | name
+    br
+    input(type="submit" value='zmien')
+
+  form(action='resetPassword' method='POST')
+    input(type="email" name='email' value=email)
+    | email
+    br
+    input(type="submit" value='reset')

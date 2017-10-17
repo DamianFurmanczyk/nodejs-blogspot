@@ -1,0 +1,19 @@
+mixin userRegForm(userInfo={})
+    form(action='/register' method='POST')
+        label(for='email') email
+        input(type='email' name='email')
+        br
+        br
+        label(for='name') name
+        input(type='text' name='username')
+        br
+        br
+        label(for='password') password
+        input(type='password' name='password')
+        br
+        br
+        label(for='password-repeat') confirm password
+        input(type='password' name='password-repeat')
+        br
+        br
+        input(type='submit' value='Rejestrowanko!')

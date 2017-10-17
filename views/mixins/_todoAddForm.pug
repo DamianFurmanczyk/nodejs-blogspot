@@ -1,0 +1,46 @@
+mixin todoForm(todo = {})
+    h2= todo.name
+    if todo._id
+        form(action=`/todos/${todo._id || ''}/edit` method='POST' enctype='multipart/form-data')
+            label(for='name') tytul
+            input(type='text' name='title' value=todo.title)
+            br
+            input#photo(type="file" name="photo" accept="image/gif, image/jpeg, image/png")
+            br
+            label(for='body') opis
+            if todo.photo
+                img(src=`/uploads/${todo.photo}`)
+                | ladny jotpeg
+            textarea(type='text' name='body')= todo.body
+            - const priorytetz = ['hai', 'norma', 'low']
+            ul
+                each priorytet in priorytetz
+                    li 
+                        input(type='checkbox' id=priorytet name='priorytet' value=priorytet
+                        checked=(todo.priorytet.indexOf(priorytet) !== -1 ))
+                        //- no freakin es6
+                        //- - console.log(todo.priorytet)
+                        label(for=priorytet)= priorytet
+            
+            button(type='submit') #{"dziendobry/serwus"}
+
+
+
+    if !todo._id
+        form(action='/add' method='POST' enctype='multipart/form-data')
+            label(for='name') tytul
+            input(type='text' name='title')
+            br
+            input#photo(type="file" name="photo" accept="image/gif, image/jpeg, image/png")
+            br
+            label(for='body') opis
+            textarea(type='text' name='body')
+            - const priorytetz = ['hai', 'norma', 'low']
+            ul
+                each priorytet in priorytetz
+                    li 
+                        input(type='checkbox' id=priorytet name='priorytet' value=priorytet
+                        )
+
+                        label(for=priorytet)= priorytet
+            button(type='submit') #{"dziendobry/serwus"}
