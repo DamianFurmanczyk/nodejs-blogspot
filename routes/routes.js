@@ -3,10 +3,13 @@ const passport = require('passport');
 const router = express.Router();
 
 const mainC = require('../controllers/mainController');
+const usersC = require('../controllers/usersController');
 
 // uwaga plan: zamiast async await -response jako middleware/endware ktore albo
 // responsuje albo nextuje z errorem
 
 router.get('/', mainC.getHomepage);
+
+router.get('/register', usersC.gregister);
 
 module.exports = router;

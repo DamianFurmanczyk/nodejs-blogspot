@@ -1,6 +1,15 @@
 extends layout
 
 block content
-    h1 its all ready! lets rock!
-    small oh wait, 
-      b that stinky boi math and his kartkowkas ehhh
+  #landingBg
+    //- jezeli nie zalogowano
+    div.landingBg-buttonsContainer
+      a(href='/register').blue.darken-3.waves-effect.waves-light.btn-large Sign up for free!
+      br
+      a(href='/browse').blue.darken-3.waves-effect.waves-light.btn-large Browse blogszpot
+
+      
+
+    //- h1 its all ready! lets rock!
+    //- small oh wait, 
+    //-   b that stinky boi math and his kartkowkas ehhh

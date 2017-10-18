@@ -1,7 +1,78 @@
 body {
-    background: lightcoral;
-    color: white;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+#ultramain {
+flex: 1 0 auto;
+display: flex;
+flex-direction: column;
+background: #fafafa;
 }
+
+/* el-landing */
+
+#landingBg {
+    background: #fff url("/imgs/pexels-photo-261662.jpeg") no-repeat center fixed;
+    background-size: cover;
+    display: flex;
+    flex: 1 0 auto;
+    min-height: 500px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#landingBg:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(30, 30, 30, 0.4);
+}
+
+.landingBg-buttonsContainer a {
+    width: 330px;
+    display: block;
+}
+
+/* el-nav */
+
+nav {
+    position: relative;
+    z-index: 50;
+}
+
+.nav-link_uncolappsable.active {
+    border-bottom: 3px #fb8c00 solid;
+    background: #1e88e5;
+}
+
+.nav-link_colappsable.active {
+    background: #1e88e5;
+    color: #fff;
+}
+
+.nav-link_colappsable.active:hover {
+    background: #1e88e5;
+    color: #fff;
+}
+
+#sidenav-overlay {
+    margin-left: 300px;
+}
+
+/* el-forms */
+
+form {
+    margin: 100px auto;
+    width: 100%;
+}
+
+/* el-flashes */
 
 .flash {
     padding: 10px 5px;
