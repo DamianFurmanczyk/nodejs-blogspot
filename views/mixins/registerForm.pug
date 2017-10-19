@@ -3,16 +3,20 @@ mixin regForm()
     form(action='/register' method='POST').col.s12.m8.l6.offset-m2.offset-l3
       .row
         .input-field.col.s12
-          input#fullname.validate(name='fullname', type='text', required)
-          label(for='fullname') Full name
+          input#email.validate(type='email')
+          label(for='email') Email
       .row
         .input-field.col.s12
-          input#password.validate(type='password', required)
+          input#fullname.validate(name='fullname', type='text')
+          label(for='username') Username
+      .row
+        .input-field.col.s12
+          input#password.validate(type='password')
           label(for='password') Password
       .row
         .input-field.col.s12
-          input#email.validate(type='email', required)
-          label(for='email') Email
+          input#password.validate(type='password')
+          label(for='confirm-password') Confirm password
       .row
         .col12
           p
@@ -23,4 +27,3 @@ mixin regForm()
             label(for='r2') Private
       .row
         input(type='submit', value='Sign up').btn.right
-

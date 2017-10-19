@@ -11,10 +11,45 @@ flex-direction: column;
 background: #fafafa;
 }
 
+/* el-flashes */
+
+.flashes--container {
+    position: fixed;
+    right: 20px;
+    top: 70px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 999;
+    pointer-events: none;
+}
+
+span.flash--remover{
+    color: #dd2c00;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-block;
+    font-style: oblique;
+    pointer-events: initial;
+}
+
+.flash {
+    padding-right: 16px;
+    line-height: 16px;
+    position: relative;
+    padding: 10px 15px;
+    color: white;
+    display: inline-block;
+    border-radius: 2px;
+    background: #484848;
+    box-shadow: rgba(30, 30, 30, 0.4) 0 2px 2px;
+}
+
 /* el-landing */
 
 #landingBg {
-    background: #fff url("/imgs/pexels-photo-261662.jpeg") no-repeat center fixed;
+    background: #fff url("/imgs/pexels-photo-261662.jpeg") no-repeat center;
     background-size: cover;
     display: flex;
     flex: 1 0 auto;
@@ -67,33 +102,68 @@ nav {
 
 /* el-forms */
 
+.form--container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
 form {
-    margin: 100px auto;
+    margin: 0 auto;
     width: 100%;
 }
 
-/* el-flashes */
+  /* label color */
+  .input-field label {
+    color: #424242 !important;
+  }
+  /* label focus color */
+  .input-field input[type=text].invalid + label,
+  .input-field input[type=password].invalid + label,
+  .input-field input[type=email].invalid + label {
+    color: #dd2c00 !important;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus,
+  .input-field input[type=password]:focus,
+  .input-field input[type=email]:focus {
+    border-bottom: 1px solid #424242 !important;
+    box-shadow: 0 1px 0 0 #424242 !important;
+  }
+  /* valid color */
+  .input-field input[type=text].valid,
+  .input-field input[type=password].valid,
+  .input-field input[type=email].valid {
+    border-bottom: 1px solid #424242 !important;
+    box-shadow: 0 1px 0 0 #424242 !important;
+  }
+  /* invalid color */
+  .input-field input[type=text].invalid,
+  .input-field input[type=password].invalid,
+  .input-field input[type=email].invalid
+   {
+    border-bottom: 1px solid #dd2c00 !important;
+    box-shadow: 0 1px 0 0 #dd2c00 !important;
+  }
 
-.flash {
-    padding: 10px 5px;
-    background: #eeeeee;
-    animation: shake 0.3s;
-    display: flex;
-    justify-content: space-between;
-    color: #333;
-}
+  input[type='submit'] {
+      background: #fff;
+      border: #424242 1px solid;
+      color: #424242;
+  }
 
-@keyframes shake {
-    0%,
-    50%,
-    100% {
-        transform: translateX(0px);
-        transform: translateX(0px);
+  input[type='submit']:hover,
+  input[type='submit']:active
+   {
+      background: #424242;
+      color: #fff;
     }
-    25% {
-        transform: translateX(-10px);
-    }
-    75% {
-        transform: translateX(10px);
-    }
-}
+    
+    [type="radio"]+label:before,
+    [type="radio"]+label:after {
+        border: 2px solid black !important;
+        color: #fff;
+  }
+  
+  [type="radio"]+label:after {
+  background-color: #424242 !important;
+  }

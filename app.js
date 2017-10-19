@@ -15,6 +15,8 @@ mongoose
         ☠☠☠☠☠`);
     });
 
+require('./models/user');
+
 const app = require('./appConfig');
 
 const server = app.listen(4200, () => {
