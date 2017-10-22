@@ -11,8 +11,9 @@ exports.gregister = (req, res) => {
 
 exports.valReg = (req, res, next) => {
   req.sanitizeBody('username');
+  console.log(req.body.username);
   req
-    .checkBody('username', 'Username is not valid! ')
+    .checkBody('username', 'username is not valid! ')
     .notEmpty();
   req
     .checkBody('email', 'That email is not valid! ')
@@ -23,8 +24,9 @@ exports.valReg = (req, res, next) => {
     .checkBody('password', 'Password fields cannot be empty!')
     .notEmpty();
   req
-    .checkBody('confirm-password', 'Password confirmation failed!')
+    .checkBody('confirmPassword', 'Password confirmation failed!')
     .equals(req.body.password);
+  // req   .checkBody('ispublic', 'Choose user privacy!')   .notEmpty();
 
   const errors = req.validationErrors();
 
@@ -39,8 +41,44 @@ exports.valReg = (req, res, next) => {
       flashes: req.flash()
     });
   } else {
-    res.render('homepage');
+    return next();
   }
 };
 
-exports.pregister = (req, res) => {};
+exports.register2DB = (req, res, next) => {
+
+  user
+    .register(new user({email: req.body.email, username: req.body.username, ispublic: req.body.ispublic}), req.body.password, function (err, user) {
+      if (err) {
+        console.log('errors @ register2DB');
+
+        console.log(err);
+
+        req.flash('error', err.message);
+        res.render('register', {
+          user: req.body,
+          flashes: req.flash()
+        });
+        // if end
+      } else {
+        return next();
+      }
+    });
+};
+
+exports.authUser = passport.authenticate('local', {
+  failureRedirect: '/',
+  failureFlash: 'Failed Login!',
+  successRedirect: '/',
+  successFlash: 'You are now logged in!'
+});
+
+exports.logout = (req, res) => {
+  req.logout();
+  req.flash('success', 'logged out');
+  res.redirect('/');
+};
+
+exports.login = (req, res) => {
+  res.render('login');
+};

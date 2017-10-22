@@ -6,30 +6,29 @@ const mongodbErrorHadler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: [
-      true, '⚠ Name missing! ⚠'
+      true, '⚠ Username missing! ⚠'
     ],
-    trim: true
+    trim: true,
+    unique: [true, 'Username already taken']
   },
   email: {
     type: String,
+    lowercase: true,
     required: [
-      true, '⚠ email missing! ⚠'
+      true, '⚠ Email missing! ⚠'
     ],
     validate: [
-      validator.isEmail, '⚠ Niewłaściwy Adres Imeil ⚠'
+      validator.isEmail, '⚠ Email is invalid ⚠'
     ],
     trim: true,
-    unique: true
+    unique: [true, 'Email is already in use']
   },
-  password: {
-    type: String,
-    required: [
-      true, '⚠ password missing! ⚠'
-    ],
-    trim: true
+  ispublic: {
+    required: true,
+    type: String
   }
 });
 

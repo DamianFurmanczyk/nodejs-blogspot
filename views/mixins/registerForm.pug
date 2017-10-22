@@ -1,29 +1,29 @@
-mixin regForm()
+mixin regForm(user = {})
   .row
     form(action='/register' method='POST').col.s12.m8.l6.offset-m2.offset-l3
       .row
         .input-field.col.s12
-          input#email.validate(type='email')
+          input#email.validate(type='email', value=user ? user.email : '', name='email', required)
           label(for='email') Email
       .row
         .input-field.col.s12
-          input#fullname.validate(name='fullname', type='text')
-          label(for='username') Username
+          input#username.validate(name='username', value=user ? user.username : '', type='text')
+          label(for='username') username
       .row
         .input-field.col.s12
-          input#password.validate(type='password')
+          input#password.validate(name='password', value=user ? user.password : '',  type='password')
           label(for='password') Password
       .row
         .input-field.col.s12
-          input#password.validate(type='password')
-          label(for='confirm-password') Confirm password
+          input#password.validate(type='password', value=user ? user.confirmPassword : '', name='confirmPassword')
+          label(for='confirmPassword') Confirm password
       .row
         .col12
           p
-            input#r1(name='ispublic', value='true', type='radio', required)
+            input#r1(name='ispublic', value='true', checked= user ? user.ispublic=='true' : false,  type='radio', required)
             label(for='r1') Public
           p
-            input#r2(name='ispublic', value='false', type='radio')
+            input#r2(name='ispublic', value='false', checked= user ? user.ispublic=='false' : false, type='radio')
             label(for='r2') Private
       .row
         input(type='submit', value='Sign up').btn.right

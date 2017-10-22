@@ -11,6 +11,11 @@ flex-direction: column;
 background: #fafafa;
 }
 
+::selection {
+    background: #484848;
+    color: #80d8ff;
+}
+
 /* el-flashes */
 
 .flashes--container {
@@ -152,7 +157,8 @@ form {
   }
 
   input[type='submit']:hover,
-  input[type='submit']:active
+  input[type='submit']:active,
+  input[type='submit']:focus
    {
       background: #424242;
       color: #fff;

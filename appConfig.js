@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const passport = require('passport');
 require('dotenv/config');
+const user = mongoose.model('user');
 
 // non-node_modules requires
 const routes = require("./routes/routes");
@@ -41,11 +42,20 @@ app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-// passport passport.serializeUser(function (user, done) {     done(null,
-// user.id); }); passport.deserializeUser(function (id, done) {     User
-// .findById(id, function (err, user) {             done(err, user);         });
-// }); app.use(passport.initialize()); app.use(passport.session()); custom
-// middleware
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+passport.deserializeUser(function (id, done) {
+    user
+        .findById(id, function (err, user) {
+            done(err, user);
+        });
+});
+app.use(passport.initialize());
+app.use(passport.session());
+
+// custom middleware
+
 app.use((req, res, next) => {
     res.locals.user = req.user || null;
     res.locals.h = helpers;

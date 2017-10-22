@@ -4,12 +4,14 @@ block content
   #landingBg
     //- jezeli nie zalogowano
     div.landingBg-buttonsContainer
-      a(href='/register').blue.darken-3.waves-effect.waves-light.btn-large Sign up for free!
-      br
-      a(href='/browse').blue.darken-3.waves-effect.waves-light.btn-large Browse blogszpot
-
-      
-
-    //- h1 its all ready! lets rock!
-    //- small oh wait, 
-    //-   b that stinky boi math and his kartkowkas ehhh
+      if !user
+        a(href='/register').blue.darken-3.waves-effect.waves-light.btn-large Sign up for free!
+        br
+        a(href='/login').blue.darken-3.waves-effect.waves-light.btn-large Sing in! (for free)
+      else
+        a(href='/post').blue.darken-3.waves-effect.waves-light.btn-large Add new post
+          span.right ✍
+        br
+        a(href='/browse').blue.darken-3.waves-effect.waves-light.btn-large Browse blogszpot
+        br
+        a(href='/logout').blue.darken-3.waves-effect.waves-light.btn-large Log out

@@ -11,6 +11,8 @@ const usersC = require('../controllers/usersController');
 router.get('/', mainC.getHomepage);
 
 router.get('/register', usersC.gregister);
-router.post('/register', usersC.valReg);
+router.post('/register', usersC.valReg, usersC.register2DB, usersC.authUser);
+
+router.get('/logout', usersC.logout);
 
 module.exports = router;
