@@ -14,5 +14,7 @@ router.get('/register', usersC.gregister);
 router.post('/register', usersC.valReg, usersC.register2DB, usersC.authUser);
 
 router.get('/logout', usersC.logout);
+router.get('/login', usersC.login);
+router.post('/login', usersC.loginM, usersC.authUser);
 
 module.exports = router;

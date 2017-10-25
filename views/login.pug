@@ -4,3 +4,5 @@ include mixins/loginForm.pug
 block content
   .container.form--container
     h2.center-align Hey! Its good to have you back 👊
+    +loginForm(userInfo)
+    console.log(userInfo)

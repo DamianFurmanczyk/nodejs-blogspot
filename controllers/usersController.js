@@ -1,5 +1,5 @@
 const passport = require('passport');
-const localStr = require('../models/passportLocalAuth');
+// const localStr = require('../models/localAuth');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 mongoose.Promise = global.Promise;
@@ -54,11 +54,9 @@ exports.register2DB = (req, res, next) => {
 
         console.log(err);
 
-        req.flash('error', err.message);
-        res.render('register', {
-          user: req.body,
-          flashes: req.flash()
-        });
+        const errorKeys = Object.keys(err.errors);
+        errorKeys.forEach(key => req.flash('error', err.errors[key].message));
+        res.redirect('back');
         // if end
       } else {
         return next();
@@ -67,7 +65,7 @@ exports.register2DB = (req, res, next) => {
 };
 
 exports.authUser = passport.authenticate('local', {
-  failureRedirect: '/',
+  failureRedirect: '/login',
   failureFlash: 'Failed Login!',
   successRedirect: '/',
   successFlash: 'You are now logged in!'
@@ -79,6 +77,19 @@ exports.logout = (req, res) => {
   res.redirect('/');
 };
 
+exports.loginM = (req, res, next) => {
+  console.log(req.body);
+  next();
+};
+
 exports.login = (req, res) => {
   res.render('login');
+};
+
+exports.email2lower = (req, res) => {
+  req.body.email = req
+    .body
+    .email
+    .toLowerCase();
+  next();
 };

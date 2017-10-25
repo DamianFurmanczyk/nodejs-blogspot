@@ -15,7 +15,7 @@ mixin regForm(user = {})
           label(for='password') Password
       .row
         .input-field.col.s12
-          input#password.validate(type='password', value=user ? user.confirmPassword : '', name='confirmPassword')
+          input#confirmPassword.validate(type='password', value=user ? user.confirmPassword : '', name='confirmPassword')
           label(for='confirmPassword') Confirm password
       .row
         .col12

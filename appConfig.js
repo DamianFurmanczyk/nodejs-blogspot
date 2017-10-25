@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const passport = require('passport');
+var LocalStrategy = require("passport-local").Strategy;
 require('dotenv/config');
 const user = mongoose.model('user');
 
@@ -42,15 +43,34 @@ app.use(cookieParser());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
-passport.deserializeUser(function (id, done) {
+// passport
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+}, function (email, password, done) {
     user
-        .findById(id, function (err, user) {
-            done(err, user);
+        .findOne({
+            email: email
+        }, function (err, user) {
+            console.log('err');
+            console.log(email);
+            if (err) {
+                console.log(err);
+                console.log('err');
+                return done(err);
+            }
+            if (!user) {
+                console.log('user');
+                return done(null, false);
+            }
+            return done(null, user);
         });
-});
+}));
+
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
