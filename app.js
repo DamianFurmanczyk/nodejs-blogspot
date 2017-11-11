@@ -14,6 +14,7 @@ mongoose.connection.on("error", err => {
 });
 
 require("./models/user");
+require("./models/post");
 
 const app = require("./appConfig");
 

@@ -27,11 +27,17 @@ html(lang="en")
                 li
                   a(href='/').nav-link_uncolappsable Home
                 li
-                  a(href='/register').nav-link_uncolappsable Sign up
+                  if !user
+                    a(href='/login').nav-link_uncolappsable Sign in
+                  else
+                    a(href='/logout').nav-link_uncolappsable Log out
                 li
                   a(href='collapsible.html').nav-link_uncolappsable Javascript
                 li
                   a(href='mobile.html').nav-link_uncolappsable Mobile
+                if user
+                  li
+                    a(href='/account').nav-link_uncolappsable Account
               ul#mobile-demo.side-nav
                 li
                   a(href='/').nav-link_colappsable Home
@@ -45,26 +51,10 @@ html(lang="en")
       block content
 
     footer.page-footer.blue.lighten-1
-      .container
-        .row
-          .col.l6.s12
-            h5.white-text Footer Content
-            p.grey-text.text-lighten-4 You can use rows and columns here to organize your footer content.
-          .col.l4.offset-l2.s12
-            h5.white-text What does blogszpot offer???
-            ul
-              li
-                a.grey-text.text-lighten-3(href='#!') ✔ sharing your stories
-            ul
-              li
-                a.grey-text.text-lighten-3(href='#!') ✔ great community
-            ul
-              li
-                a.grey-text.text-lighten-3(href='#!') ✔ never getting bored again
+      block footerContent
       .footer-copyright.blue
         .container
-          | © 2014 Copyright Text
-          a.grey-text.text-lighten-4.right(href='#!') More Links
+          | © 2017 Damian Furmańczyk
 
 
       script(src="/js/jquery-3.2.1.min.js")

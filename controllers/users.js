@@ -10,17 +10,18 @@ exports.gregister = (req, res) => {
 };
 
 exports.valReg = (req, res, next) => {
-  req.sanitizeBody("username");
-  console.log(req.body.username);
+  _.map(req.body, val => {
+    req.sanitizeBody(val);
+  });
+
   req.checkBody("username", "username is not valid! ").notEmpty();
   req.checkBody("email", "That email is not valid! ").isEmail();
-  req.sanitizeBody("email");
+  req.checkBody("ispublic", "Choose user privacy!").notEmpty();
 
   req.checkBody("password", "Password fields cannot be empty!").notEmpty();
   req
     .checkBody("confirmPassword", "Password confirmation failed!")
     .equals(req.body.password);
-  // req   .checkBody('ispublic', 'Choose user privacy!')   .notEmpty();
 
   const errors = req.validationErrors();
 
@@ -30,7 +31,7 @@ exports.valReg = (req, res, next) => {
     });
 
     res.render("register", {
-      body: req.body,
+      userInfo: req.body,
       flashes: req.flash()
     });
   } else {
@@ -39,11 +40,12 @@ exports.valReg = (req, res, next) => {
 };
 
 exports.register2DB = (req, res, next) => {
+  const { email, username, ispublic } = req.body;
   user.register(
     new user({
-      email: req.body.email,
-      username: req.body.username,
-      ispublic: req.body.ispublic
+      email,
+      username,
+      ispublic
     }),
     req.body.password,
     function(err, user) {
@@ -54,7 +56,10 @@ exports.register2DB = (req, res, next) => {
 
         const errorKeys = Object.keys(err.errors);
         errorKeys.forEach(key => req.flash("error", err.errors[key].message));
-        res.redirect("back");
+        res.render("register", {
+          userInfo: req.body,
+          flashes: req.flash()
+        });
         // if end
       } else {
         return next();

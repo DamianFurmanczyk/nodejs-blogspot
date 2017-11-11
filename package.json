@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./app.js",
-    "watch:build": "webpack --watch",
-    "watch:server": "nodemon ./app.js"
+    "watch": "concurrently \"npm run build \"npm run server\" ",
+    "build": "webpack --watch",
+    "server": "nodemon ./app.js"
   },
   "author": "Damian Furmańczyk",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "flash": "^1.1.0",
     "fs": "0.0.1-security",
     "jimp": "^0.2.28",
+    "lodash": "^4.17.4",
     "materialize": "^1.0.0",
     "md5": "^2.2.1",
     "moment": "^2.18.1",

@@ -1,30 +1,23 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-const md5 = require('md5');
-const validator = require('validator');
-const mongodbErrorHadler = require('mongoose-mongodb-errors');
-const passportLocalMongoose = require('passport-local-mongoose');
+const mongoose = require("mongoose");
+const md5 = require("md5");
+const validator = require("validator");
+const mongodbErrorHadler = require("mongoose-mongodb-errors");
+const passportLocalMongoose = require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [
-      true, '⚠ Username missing! ⚠'
-    ],
+    required: true,
     trim: true,
-    unique: [true, 'Username already taken']
+    unique: true
   },
   email: {
     type: String,
     lowercase: true,
-    required: [
-      true, '⚠ Email missing! ⚠'
-    ],
-    validate: [
-      validator.isEmail, '⚠ Email is invalid ⚠'
-    ],
+    required: true,
+    validate: validator.isEmail,
     trim: true,
-    unique: [true, 'Email is already in use']
+    unique: true
   },
   ispublic: {
     required: true,
@@ -35,4 +28,4 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(mongodbErrorHadler);
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model("user", userSchema);

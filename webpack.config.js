@@ -40,9 +40,9 @@ module.exports = {
       {
         test: /\.(styl)$/,
         use: ExtractTextPlugin.extract([
-          "css-loader?sourceMap",
+          "css-loader?sourceMap:true",
           postcss,
-          "stylus-loader?sourceMap"
+          "stylus-loader?sourceMap:true"
         ])
       },
       {

@@ -1,20 +1,29 @@
-const express = require('express');
-const passport = require('passport');
+const express = require("express");
+const passport = require("passport");
 const router = express.Router();
+const { check, validationResult } = require("express-validator/check");
+const middleware = require("../middleware");
 
-const mainC = require('../controllers/mainController');
-const usersC = require('../controllers/usersController');
+const mainC = require("../controllers/main");
+const usersC = require("../controllers/users");
+const blogsC = require("../controllers/blogs");
 
 // uwaga plan: zamiast async await -response jako middleware/endware ktore albo
 // responsuje albo nextuje z errorem
 
-router.get('/', mainC.getHomepage);
+router.get("/", mainC.getHomepage);
 
-router.get('/register', usersC.gregister);
-router.post('/register', usersC.valReg, usersC.register2DB, usersC.authUser);
+router.get("/register", usersC.gregister);
+router.post("/register", usersC.valReg, usersC.register2DB, usersC.authUser);
 
-router.get('/logout', usersC.logout);
-router.get('/login', usersC.login);
-router.post('/login', usersC.loginM, usersC.authUser);
+router.get("/logout", middleware.isLogged, usersC.logout);
+router.get("/login", usersC.login);
+router.post("/login", usersC.loginM, usersC.authUser);
+
+// check if logged in
+
+router.get("/newPost", blogsC.gAddNewPost);
+
+router.post("/addPost", middleware.isLogged, blogsC.pAddPost);
 
 module.exports = router;

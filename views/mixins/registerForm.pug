@@ -1,21 +1,21 @@
 mixin regForm(user = {})
   .row
-    form(action='/register' method='POST').col.s12.m8.l6.offset-m2.offset-l3
+    form(action='/register' method='POST').col.s12.m10.xl6.offset-m1.offset-xl3.l8.offset-l-2
       .row
         .input-field.col.s12
-          input#email.validate(type='email', value=user ? user.email : '', name='email', required)
+          input#email.validate(type='email', value=user && user.email, name='email', required)
           label(for='email') Email
       .row
         .input-field.col.s12
-          input#username.validate(name='username', value=user ? user.username : '', type='text')
+          input#username.validate(name='username', value=user && user.username, type='text')
           label(for='username') username
       .row
         .input-field.col.s12
-          input#password.validate(name='password', value=user ? user.password : '',  type='password')
+          input#password.validate(name='password', type='password')
           label(for='password') Password
       .row
         .input-field.col.s12
-          input#confirmPassword.validate(type='password', value=user ? user.confirmPassword : '', name='confirmPassword')
+          input#confirmPassword.validate(type='password', name='confirmPassword')
           label(for='confirmPassword') Confirm password
       .row
         .col12
