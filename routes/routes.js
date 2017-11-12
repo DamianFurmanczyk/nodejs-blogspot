@@ -18,12 +18,13 @@ router.post("/register", usersC.valReg, usersC.register2DB, usersC.authUser);
 
 router.get("/logout", middleware.isLogged, usersC.logout);
 router.get("/login", usersC.login);
-router.post("/login", usersC.loginM, usersC.authUser);
+router.post("/login", usersC.authUser);
 
-// check if logged in
+router.get("/newPost", middleware.isLogged, blogsC.gAddNewPost);
+router.post("/addPost", middleware.isLogged, blogsC.pAddPost, blogsC.showBlog);
 
-router.get("/newPost", blogsC.gAddNewPost);
-
-router.post("/addPost", middleware.isLogged, blogsC.pAddPost);
+router.get("/browse", blogsC.showBlogs);
+router.get("/browse/blog/:userID", blogsC.showBlog);
+router.get("/blog/:userID", blogsC.showBlog);
 
 module.exports = router;

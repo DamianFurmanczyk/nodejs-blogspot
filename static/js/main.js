@@ -33,7 +33,7 @@
   flashes.forEach((f, i) => {
     setTimeout(() => {
       remFlash(f);
-    }, 7500 + 400 * i);
+    }, 3500 + 750 * i);
   });
 
   anchors.forEach(a => {

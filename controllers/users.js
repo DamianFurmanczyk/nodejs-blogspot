@@ -51,8 +51,9 @@ exports.register2DB = (req, res, next) => {
     function(err, user) {
       if (err) {
         console.log("errors @ register2DB");
-
-        console.log(err);
+        console.log("errors @ register2DB");
+        console.log("errors @ register2DB");
+        console.log("errors @ register2DB");
 
         const errorKeys = Object.keys(err.errors);
         errorKeys.forEach(key => req.flash("error", err.errors[key].message));
@@ -79,11 +80,6 @@ exports.logout = (req, res) => {
   req.logout();
   req.flash("success", "logged out");
   res.redirect("/");
-};
-
-exports.loginM = (req, res, next) => {
-  console.log(req.body);
-  next();
 };
 
 exports.login = (req, res) => {

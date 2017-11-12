@@ -1,12 +1,13 @@
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const post = mongoose.model("post");
+const user = mongoose.model("user");
 
 exports.gAddNewPost = (req, res) => {
   res.render("addPost");
 };
 
-exports.pAddPost = async (req, res) => {
+exports.pAddPost = (req, res, next) => {
   let errCount = 0;
   const tagsRegex = /^(([A-Z]|[0-9]|[a-z]| )+, )*([A-Z]|[0-9]|[a-z]| )+$/;
 
@@ -29,14 +30,13 @@ exports.pAddPost = async (req, res) => {
     });
   }
 
-  if (!tagsRegex.test(req.body.tags)) {
+  if (!tagsRegex.test(req.body.tags) && req.body.tags.length > 0) {
     req.flash("error", "Wrong tags format");
     errCount++;
   }
 
-  req.body.tags = req.body.tags.split(",").map(tag => tag.trim());
-
-  console.log(req.body.tags);
+  req.body.tags =
+    req.body.tags !== "" ? req.body.tags.split(",").map(tag => tag.trim()) : [];
 
   if (errCount > 0) {
     return res.render("addPost", {
@@ -45,8 +45,38 @@ exports.pAddPost = async (req, res) => {
     });
   }
 
-  const newPost = new post(req.body);
-  const added = await newPost.save();
+  new post(req.body)
+    .save()
+    .then(newP => {
+      res.redirect(`browse/blog/${req.user.id}`);
+    })
+    .catch(err => {
+      req.flash("error", "Error during adding the post");
+      console.log(err);
 
-  res.render("addPost");
+      return res.render("addPost", {
+        flashes: req.flash()
+      });
+    });
+};
+
+exports.showBlog = async (req, res) => {
+  const { userID } = req.params;
+
+  const posts = await post.find({ _user: userID }).sort({ date: -1 });
+  const owner = await user.findById(req.params.userID);
+
+  console.log(posts);
+
+  return res.render("blog", {
+    posts,
+    owner
+  });
+};
+
+exports.showBlogs = async (req, res) => {
+  const users = await user.find({ ispublic: true });
+  console.log(users);
+  // wyswietla cardy z overflow: hidden i ostatnimi postami uzytkkownika,
+  // zdj uzytkownikow bylyby useful
 };

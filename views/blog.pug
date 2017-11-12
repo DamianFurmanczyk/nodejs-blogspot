@@ -1,0 +1,18 @@
+extends layout2
+
+block content
+  p=  `blog: ${user.nickname || user.email}`
+  .container.blog-container
+    each post in posts
+      .row
+        .col.s12.m10.l8.card-column.offset-m1.offset-l2
+          h2.header= post.title
+          .card.horizontal
+            .card-stacked
+              .card-content
+                span.small.right= h.moment(post.date).format('MMMM Do YYYY')
+                p= post.content
+                if post.tags.length > 0
+                  .card-action
+                    each tag in post.tags
+                      span= tag
