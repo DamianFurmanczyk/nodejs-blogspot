@@ -1,0 +1,14 @@
+extends layout2
+include mixins/post
+
+block content
+  .container.blog-container
+    .row
+      each blog in blogs
+        a(href=`/browse/blog/${blog.id}`).col.s12.m6
+          .card.blue.darken-2
+            .card-content.white-text
+              span.card-title= blog.username
+              p
+                | I am a very simple card. I am good at containing small bits of information.
+                | I am convenient because I require little markup to use effectively.

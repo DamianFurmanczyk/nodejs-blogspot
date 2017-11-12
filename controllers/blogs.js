@@ -9,7 +9,7 @@ exports.gAddNewPost = (req, res) => {
 
 exports.pAddPost = (req, res, next) => {
   let errCount = 0;
-  const tagsRegex = /^(([A-Z]|[0-9]|[a-z]| )+, )*([A-Z]|[0-9]|[a-z]| )+$/;
+  const tagsRegex = /^(([A-Z]|[0-9]|[a-z]|\s)+,\s*)*([A-Z]|[0-9]|[a-z]| )+$/;
 
   _.map(req.body, val => {
     req.sanitizeBody(val);
@@ -76,7 +76,8 @@ exports.showBlog = async (req, res) => {
 
 exports.showBlogs = async (req, res) => {
   const users = await user.find({ ispublic: true });
-  console.log(users);
-  // wyswietla cardy z overflow: hidden i ostatnimi postami uzytkkownika,
-  // zdj uzytkownikow bylyby useful
+
+  res.render("blogs", {
+    blogs: users
+  });
 };

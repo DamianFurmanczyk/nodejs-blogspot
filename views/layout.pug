@@ -6,7 +6,7 @@ html(lang="en")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
-    title #{title || 'Best blogspot zimbabwe'}
+    title #{'Best blogspot zimbabwe'}
     link(rel="stylesheet", href="/materialize/css/materialize.css")
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     link(rel="stylesheet", href="/animate.css")
@@ -16,6 +16,8 @@ html(lang="en")
     +flashesDump(flashes)
   
     main#ultramain
+
+      include account-dropdown.pug
 
       header
         .navbar-fixed
@@ -32,21 +34,25 @@ html(lang="en")
                   else
                     a(href='/logout').nav-link_uncolappsable Log out
                 li
-                  a(href='collapsible.html').nav-link_uncolappsable Javascript
+                  a(href='/browse').nav-link_uncolappsable Browse
                 li
                   a(href='mobile.html').nav-link_uncolappsable Mobile
                 if user
-                  li
-                    a(href='/account').nav-link_uncolappsable Account
+                 li
+                  a.dropdown-button(href='#!', data-activates='account-dropdown')
+                    | Account
+                    i.material-icons.right arrow_drop_down
+
               ul#mobile-demo.side-nav
                 li
                   a(href='/').nav-link_colappsable Home
                 li
                   a(href='/register').nav-link_colappsable Sign up
-                li
-                  a(href='collapsible.html').nav-link_colappsable Javascript
-                li
-                  a(href='mobile.html').nav-link_colappsable Mobile
+                if user
+                 li
+                  a.dropdown-button(href='#!', data-activates='account-dropdown')
+                    | Account
+                    i.material-icons.right arrow_drop_down
 
       block content
 
@@ -54,7 +60,7 @@ html(lang="en")
       block footerContent
       .footer-copyright.blue
         .container
-          | © 2017 Damian Furmańczyk
+          | Made with 💗 by Damian Furmańczyk
 
 
       script(src="/js/jquery-3.2.1.min.js")

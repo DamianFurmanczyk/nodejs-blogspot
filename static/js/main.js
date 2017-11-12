@@ -36,9 +36,16 @@
     }, 3500 + 750 * i);
   });
 
+  let corrA = [0, null];
   anchors.forEach(a => {
-    if (location.pathname === a.getAttribute("href")) {
-      a.classList.add("active");
+    const path = location.pathname;
+    const href = a.getAttribute("href");
+    const length = href.length;
+    const startsWith = path.slice(0, length);
+    if (startsWith === href && length > corrA[0]) {
+      corrA[0] = length;
+      corrA[1] = a;
     }
   });
+  corrA[1].classList.add("active");
 })(window);
