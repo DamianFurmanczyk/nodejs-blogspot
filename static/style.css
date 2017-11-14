@@ -115,6 +115,11 @@ nav {
 #sidenav-overlay {
   margin-left: 300px;
 }
+.blogs-card .card {
+  background: #7cc1f7 !important;
+  font-size: 1.5rem;
+  line-height: 2;
+}
 .blog-container {
   -webkit-box-shadow: 0 0 4px rgba(50,50,50,0.5);
           box-shadow: 0 0 4px rgba(50,50,50,0.5);
@@ -122,13 +127,13 @@ nav {
   padding: 20px;
 }
 .row:nth-child(even) .card-column {
-  -webkit-box-shadow: 0 0 8px #455a64;
-          box-shadow: 0 0 8px #455a64;
+  -webkit-box-shadow: 0 0 8px $gray;
+          box-shadow: 0 0 8px $gray;
   background: #bbdefb;
 }
 .row:nth-child(odd) .card-column {
-  -webkit-box-shadow: 0 0 8px #455a64;
-          box-shadow: 0 0 8px #455a64;
+  -webkit-box-shadow: 0 0 8px $gray;
+          box-shadow: 0 0 8px $gray;
   background: #64b5f6;
 }
 .card-column {
@@ -226,6 +231,13 @@ nav {
   padding: 5px 10px;
   border-radius: 3px;
   color: #ffff48;
+}
+.blue-text li a {
+  color: #2196f3 !important;
+}
+.align-middle {
+  display: block;
+  margin: 0 auto;
 }
 .small {
   font-size: 14px;

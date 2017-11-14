@@ -17,7 +17,8 @@ html(lang="en")
   
     main#ultramain
 
-      include account-dropdown.pug
+      include partials/account-dropdown.pug
+
 
       header
         .navbar-fixed
@@ -31,15 +32,13 @@ html(lang="en")
                 li
                   if !user
                     a(href='/login').nav-link_uncolappsable Sign in
-                  else
-                    a(href='/logout').nav-link_uncolappsable Log out
                 li
                   a(href='/browse').nav-link_uncolappsable Browse
                 li
                   a(href='mobile.html').nav-link_uncolappsable Mobile
                 if user
                  li
-                  a.dropdown-button(href='#!', data-activates='account-dropdown')
+                   a.dropdown-button(href='#', data-activates='dropdown1')
                     | Account
                     i.material-icons.right arrow_drop_down
 

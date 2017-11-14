@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema({
   ispublic: {
     required: true,
     type: String
-  }
+  },
+  dateRegistered: Date,
+  blogDescription: String
 });
 
 userSchema.plugin(passportLocalMongoose);

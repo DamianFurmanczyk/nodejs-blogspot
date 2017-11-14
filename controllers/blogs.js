@@ -75,7 +75,9 @@ exports.showBlog = async (req, res) => {
 };
 
 exports.showBlogs = async (req, res) => {
-  const users = await user.find({ ispublic: true });
+  const users = await user
+    .find({ ispublic: true })
+    .sort({ dateRegistered: -1 });
 
   res.render("blogs", {
     blogs: users

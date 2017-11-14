@@ -1,6 +1,6 @@
 mixin regForm(user = {})
   .row
-    form(action='/register' method='POST').col.s12.m10.xl6.offset-m1.offset-xl3.l8.offset-l-2
+    form(action='/register' method='POST').col.s12.m10.xl6.offset-m1.offset-xl3.l8.offset-l2
       .row
         .input-field.col.s12
           input#email.validate(type='email', value=user && user.email, name='email', required)

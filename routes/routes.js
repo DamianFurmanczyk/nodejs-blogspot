@@ -20,6 +20,11 @@ router.get("/logout", middleware.isLogged, usersC.logout);
 router.get("/login", usersC.login);
 router.post("/login", usersC.authUser);
 
+router.get("/editAccount", middleware.isLogged, usersC.showEditAccount);
+router.post("/editAccount", middleware.isLogged, usersC.updateAccountDetails);
+
+// blogs
+
 router.get("/newPost", middleware.isLogged, blogsC.gAddNewPost);
 router.post("/addPost", middleware.isLogged, blogsC.pAddPost, blogsC.showBlog);
 
