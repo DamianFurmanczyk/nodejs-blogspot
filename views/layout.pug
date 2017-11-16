@@ -29,16 +29,16 @@ html(lang="en")
               ul.right.hide-on-med-and-down
                 li
                   a(href='/').nav-link_uncolappsable Home
-                li
-                  if !user
+                if !user
+                  li
                     a(href='/login').nav-link_uncolappsable Sign in
                 li
                   a(href='/browse').nav-link_uncolappsable Browse
-                li
-                  a(href='mobile.html').nav-link_uncolappsable Mobile
                 if user
-                 li
-                   a.dropdown-button(href='#', data-activates='dropdown1')
+                  li
+                    a(href=`/browse/blog/${user.id}`).nav-link_uncolappsable My blog
+                  li
+                   a.dropdown-button(href='#', data-href='/editAccount' data-activates='dropdown2')
                     | Account
                     i.material-icons.right arrow_drop_down
 
@@ -46,12 +46,19 @@ html(lang="en")
                 li
                   a(href='/').nav-link_colappsable Home
                 li
-                  a(href='/register').nav-link_colappsable Sign up
+                  a(href='/browse').nav-link_uncolappsable Browse
+                if !user
+                  li
+                    a(href='/login').nav-link_uncolappsable Sign in
+                  li
+                    a(href='/register').nav-link_colappsable Sign up
                 if user
-                 li
-                  a.dropdown-button(href='#!', data-activates='account-dropdown')
-                    | Account
-                    i.material-icons.right arrow_drop_down
+                  li
+                    a(href=`/browse/blog/${user.id}`).nav-link_uncolappsable My blog
+                  li
+                    a.dropdown-button(href='#!', data-href='/editAccount' data-activates='dropdown')
+                      | Account
+                      i.material-icons.right arrow_drop_down
 
       block content
 

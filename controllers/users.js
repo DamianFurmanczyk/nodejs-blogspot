@@ -5,6 +5,7 @@ const crypto = require("crypto");
 mongoose.Promise = global.Promise;
 const user = mongoose.model("user");
 const _ = require("lodash");
+const post = mongoose.model("post");
 
 const checkValidationErrors = req => {};
 
@@ -54,7 +55,6 @@ exports.register2DB = (req, res, next) => {
     req.body.password,
     function(err, user) {
       if (err) {
-        console.log("err @ register2db", err);
         if (err.errors) {
           const errorKeys = Object.keys(err.errors);
           errorKeys.forEach(key => req.flash("error", err.errors[key].message));
@@ -101,19 +101,21 @@ exports.showEditAccount = (req, res) => {
 };
 
 exports.updateAccountDetails = (req, res, next) => {
-  const operations = [
-    "rmAcc",
-    "email",
-    "username",
-    "password",
-    "ispublic",
-    "blogDescription"
-  ];
+  const operations = ["rmAcc", "username", "ispublic", "blogDescription"];
   let operation = operations.find(op => {
-    console.log(req.body[op]);
     return req.body[op] != undefined;
   });
   let updProp;
+  console.log(operation);
+
+  if (req.body[operation].length === 0) {
+    req.flash("error", "Make sure to fill " + operation + " input");
+    return res.render("editAccount", {
+      flashes: req.flash()
+    });
+  }
+
+  console.log(req.body[operation]);
 
   if (operation === undefined) {
     req.flash("error", "Make sure to fill needed fields");
@@ -122,30 +124,14 @@ exports.updateAccountDetails = (req, res, next) => {
     });
   }
 
+  let pass = false;
   if (operation === "password" || operation === "confirmPassword") {
     next();
     // password procedure
     req
       .checkBody("confirmPassword", "Password confirmation failed!")
       .equals(req.body.password);
-  }
-
-  console.log(req.user.username);
-
-  switch (operation) {
-    case "username":
-      updProp = { $set: { username: req.body[operation] } };
-      break;
-    case "ispublic":
-      updProp = { $set: { ispublic: req.body[operation] } };
-      break;
-    case "blogDescription":
-      updProp = { $set: { blogDescription: req.body[operation] } };
-      break;
-    case "email":
-      req.checkBody("email", "Email is not valid! ").isEmail();
-      updProp = { $set: { email: req.body[operation] } };
-      break;
+    pass = true;
   }
 
   const valErrors = req.validationErrors();
@@ -161,23 +147,33 @@ exports.updateAccountDetails = (req, res, next) => {
     });
   }
 
+  if (operation === "rmAcc") {
+    req.flash("success", "Action successful");
+    user.findByIdAndRemove({ _id: req.user._id }).then(us => {
+      post.find({ _user: req.user._id }).remove({});
+    });
+    return res.redirect("/");
+  }
+
   user
-    .findOneAndUpdate({ _id: req.user._id }, updProp, { new: true })
+    .findOneAndUpdate(
+      { _id: req.user._id },
+      { $set: { [operation]: req.body[operation] } },
+      { new: true }
+    )
     .then(updUser => {
-      console.log(updUser);
-      req.flash("success", "User updated");
-      res.render("editAccount", {
+      req.flash("success", "User info updated");
+      return res.render("editAccount", {
         flashes: req.flash()
       });
     })
     .catch(err => {
-      console.log("err @ register2db", err);
       if (err.errors) {
         const errorKeys = Object.keys(err.errors);
         errorKeys.forEach(key => req.flash("error", err.errors[key].message));
       } else {
         req.flash("error", err.message);
-        res.render("editAccount", {
+        return res.render("editAccount", {
           flashes: req.flash()
         });
       }

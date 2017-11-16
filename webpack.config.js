@@ -25,8 +25,6 @@ const postcss = {
   }
 };
 
-const styles = "a";
-
 module.exports = {
   entry: "./indexWebpack.js",
 

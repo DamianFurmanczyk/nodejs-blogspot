@@ -8,33 +8,15 @@ block content
         form(action='/editAccount' method='POST')
           .row
             .input-field.col.m10.s12
-              input#email.validate(type='email', name='email')
-              label(for='email') Email
-            .col.m2.s12
-              input(type='submit', value='Update').btn
-        form(action='/editAccount' method='POST')
-          .row
-            .input-field.col.m10.s12
               input#username.validate(name='username', type='text')
               label(for='username') username
             .col.m2.s12
               input(type='submit', value='Update').btn
         form(action='/editAccount' method='POST')
           .row
-            .input-field.col12
-              input#password.validate(name='password', type='password')
-              label(for='password') Password
-          .row
-            .input-field.col10
-              input#confirmPassword.validate(type='password', name='confirmPassword')
-              label(for='confirmPassword') Confirm password
-            .row
-              input(type='submit', value='Change password').btn.right
-        form(action='/editAccount' method='POST')
-          .row
             .col.s12
               p
-                input#r1(name='ispublic', value='true', type='radio')
+                input#r1(name='ispublic', value='true', type='radio', required)
                 label(for='r1') Public
               p
                 input#r2(name='ispublic', value='false', type='radio')
@@ -45,12 +27,36 @@ block content
         form(action='/editAccount' method='POST')
           .row
             .input-field.col.s12
-              textarea(name='blogDescription')#blogDescription.materialize-textarea
+              textarea(name='blogDescription', required)#blogDescription.materialize-textarea
               label(for="blogDescription") Blog description
             .row
               input(type='submit', value='Update description').btn.right
               .clearfix
+          .row
+      .col.s10.m8.offset-s1.offset-m2
+        ul.collection.with-header
+          li.collection-header
+            h4 Account info
+          li.collection-item
+            div
+              | Email
+              span.secondary-content= user.email
+          li.collection-item
+            div
+              | Username
+              span.secondary-content= user.username
+          li.collection-item
+            div
+              | Privacy
+              span.secondary-content= user.ispublic == 'true' ? 'Public' : 'Private'
+          li.collection-item
+            div
+              | Description
+              if user.blogDescription
+                p=  user.blogDescription
+              else
+                span.secondary-content Empty
         form(action='/editAccount' method='POST', style='margin-top: 70px;')
           .row
             input(type='hidden' name='rmAcc' value='true')
-            input(type='submit', value='Remove Account').btn.deep-orange.accent-4.align-middle.white-text
+            input(type='submit', value='Delete Account').btn.deep-orange.accent-4.align-middle.white-text

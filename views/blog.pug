@@ -3,10 +3,18 @@ include mixins/post
 
 
 block content
-  p=  `blog: ${owner.nickname || owner.email}`
-  if posts.length > 0
-    .container.blog-container
-      each post in posts
-        +post(post)
-  else
-    h2.text-center Sorry i haven't posted just yet
+  .container.col.s12.m10.l8.offset-m1.offset-l2
+    .collection
+      .collection-item Owner
+        span.badge= owner.username
+      .collection-item Total posts
+        span.badge= posts.length
+        if owner.blogDescription
+          p.text-center= owner.blogDescription
+    if posts.length > 0
+      .blog-container
+        .row
+          each post in posts
+            +post(post)
+    else
+      h2.text-center Nothing to show
