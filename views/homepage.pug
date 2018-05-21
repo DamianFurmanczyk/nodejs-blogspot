@@ -5,25 +5,25 @@ block content
     //- jezeli nie zalogowano
     div.landingBg-buttonsContainer
       if !user
-        a(href='/register').blue.darken-3.waves-effect.waves-light.btn-large Sign up for free!
+        a(href='/register').blue.darken-2.waves-effect.waves-light.btn-large Sign up for free!
         br
-        a(href='/login').blue.darken-3.waves-effect.waves-light.btn-large Sing in!
+        a(href='/login').blue.darken-2.waves-effect.waves-light.btn-large Sing in!
       else
-        a(href='/newPost').blue.darken-3.waves-effect.waves-light.btn-large Add new post
+        a(href='/newPost').blue.darken-2.waves-effect.waves-light.btn-large Add new post
           span.right ✍
         br
-        a(href='/browse').blue.darken-3.waves-effect.waves-light.btn-large Browse
+        a(href='/browse').blue.darken-2.waves-effect.waves-light.btn-large Browse
         br
-        a(href='/logout').blue.darken-3.waves-effect.waves-light.btn-large Log out
+        a(href='/logout').blue.darken-2.waves-effect.waves-light.btn-large Log out
 
 block footerContent
   .container
         .row
-          .col.l4.offset-l4.s8.offset-s2.m6.offset-m3
+          .col.s12.text-center
             h5.white-text What do we offer?
             ul
-              li ✔ freedom of speech
+              li(style="font-size: 1rem") ✔ unlimited blogs,
             ul
-              li ✔ long-lasting happiness
+              li(style="font-size: 1.1rem") ✔ more unlimited blogs,
             ul
-              li ✔ nice footer
+              li(style="font-size: 1.2rem") ✔ even more (unlimited) blogs!
