@@ -1,2 +1,2 @@
-require("./static/style.styl");
 require("./static/js/main");
+require("./static/style.styl");
